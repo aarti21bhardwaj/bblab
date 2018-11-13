@@ -1,0 +1,99 @@
+<nav class="navbar navbar-dark bg-dark mb-5">
+  <a class="navbar-brand" href="/">Logo</a>
+  <div class="navbar-expand mr-auto">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="#">Home</a>
+      <a class="nav-item nav-link" (click) = "registration()" >Registration</a>
+    </div>
+  </div>
+  <div class="navbar-expand ml-auto navbar-nav">
+    <div class="navbar-nav">
+      <input type="text" name="search" placeholder="Search..." autocomplete="off" [(ngModel)]="query" class="form-control input-underline" />
+      <button class="btn btn-outline bg-dark" style=" color:white">Search</button>
+    </div>
+  </div>
+</nav>
+<div class="container">
+    <div class="jumbotron">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>DOB</th>
+            <th>Email</th>
+            <th>Country</th>
+          </tr>
+        </thead>
+        <tbody *ngIf = "query">
+          <tr *ngFor="let user of users| startsWith : query">
+            <td>{{user.first_name}}</td>
+            <td>{{user.last_name}}</td>
+            <td>{{user.dob}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.country}}</td>
+            <td class = "btn btn-primary" (click)="edit(user.id)">Edit</td>
+            <td class="btn btn-danger" (click)= "delete(user.id)" >Delete</td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="!query">
+          <tr *ngFor="let user of users">
+            <td>{{user.first_name}}</td>
+            <td>{{user.last_name}}</td>
+            <td>{{user.dob}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.country}}</td>
+            <td class="btn btn-primary" (click)="edit(user.id)">Edit</td>
+            <td class="btn btn-danger" (click)="delete(user.id)">Delete</td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="btn btn-primary pull-right" (click)="registration()">New</button>
+    </div>
+      <ng-container *ngIf = showWindow>
+        <div class="container">
+          <div class="jumbotron">
+            <div class="form-group row">
+              <label class="col-md-3 form-control-label" for="text-input">First Name</label>
+              <div class="col-md-9">
+                <input class="form-control" [(ngModel)]="userData.first_name" id="first" name="text-input"
+                  type="text">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 form-control-label" for="text-input">Last Name</label>
+              <div class="col-md-9">
+                <input class="form-control" [(ngModel)]="userData.last_name" id="last" name="text-input" type="text">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 form-control-label" for="text-input">DOB</label>
+              <div class="col-md-9">
+                <input class="form-control" [(ngModel)]="userData.dob" id="dob" name="text-input" type="text">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 form-control-label" for="text-input">Email</label>
+              <div class="col-md-9">
+                <input class="form-control" [(ngModel)]="userData.email" id="email" name="text-input" type="text">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 form-control-label" for="text-input">Password</label>
+              <div class="col-md-9">
+                <input class="form-control" [(ngModel)]="userData.password" id="text-input" name="text-input" type="password">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 form-control-label" for="text-input">Country</label>
+              <div class="col-md-9">
+                <input class="form-control" [(ngModel)]="userData.country" id="password" name="text-input" type="text">
+              </div>
+            </div>
+            <button class="btn btn-warning pull-right" (click)="cancel()">Cancel</button>
+            <button class = "btn btn-primary pull-right" (click) = "submit(userData)">Submit</button>
+           </div> 
+          </div>
+      </ng-container>
+</div>
+
